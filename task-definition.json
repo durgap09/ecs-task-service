@@ -1,0 +1,26 @@
+{
+  "family": "html-td",
+  "containerDefinitions": [
+    {
+      "name": "ecs-cl-1",
+      "image": "httpd:2.4",
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "memory": 128,
+      "cpu": 128,
+      "entryPoint": ["/bin/sh", "-c"],
+      "command": ["echo '<html><body><h1>Hello from my ECS task!</h1></body></html>' > /usr/local/apache2/htdocs/index.html && httpd-foreground"]
+    }
+  ],
+  "networkMode": "bridge",
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "cpu": "256",
+  "memory": "512"
+}

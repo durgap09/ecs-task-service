@@ -1,34 +1,36 @@
 {
-    "family": "${ECS_TASK_DEFINITION}",
-    "executionRoleArn": "arn:aws:iam::456325780689:role/ecsTaskExecutionRole",
-    "networkMode": "awsvpc",
-    "cpu": "256",
-    "memory": "512",
-    "requiresCompatibilities": ["FARGATE"],
-    "containerDefinitions": [
+  "family": "${ECS_TASK_DEFINITION}",
+  "executionRoleArn": "arn:aws:iam::456325780689:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "cpu": "256",
+  "memory": "512",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "containerDefinitions": [
+    {
+      "name": "${ECS_CLUSTER}",
+      "image": "nginx:latest",
+      "portMappings": [
         {
-            "name": "${ECS_CLUSTER}",
-            "image": "nginx:latest",
-            "portMappings": [
-                {
-                    "containerPort": 80,
-                    "protocol": "tcp"
-                }
-            ],
-            "essential": true,
-            "logConfiguration": {
-                "logDriver": "awslogs",
-                "options": {
-                    "awslogs-group": "/ecs/${ECS_TASK_DEFINITION}",
-                    "awslogs-region": "${AWS_DEFAULT_REGION}",
-                    "awslogs-stream-prefix": "ecs"
-                }
-            },
-            "command": [
-                "/bin/sh",
-                "-c",
-                "echo '<html><body><h1>Hello, World!</h1></body></html>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
-            ]
+          "containerPort": 80,
+          "protocol": "tcp"
         }
-    ]
+      ],
+      "essential": true,
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/${ECS_TASK_DEFINITION}",
+          "awslogs-region": "${AWS_DEFAULT_REGION}",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "command": [
+        "/bin/sh",
+        "-c",
+        "echo '<html><body><h1>Hello, World!</h1></body></html>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+      ]
+    }
+  ]
 }

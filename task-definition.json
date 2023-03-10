@@ -1,5 +1,5 @@
 {
-    "family": "${env.ECS_TASK_DEFINITION}",
+    "family": "${ECS_TASK_DEFINITION}",
     "executionRoleArn": "arn:aws:iam::456325780689:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
     "cpu": "256",
@@ -7,7 +7,7 @@
     "requiresCompatibilities": ["FARGATE"],
     "containerDefinitions": [
         {
-            "name": "${env.ECS_CLUSTER}",
+            "name": "${ECS_CLUSTER}",
             "image": "nginx:latest",
             "portMappings": [
                 {
@@ -19,8 +19,8 @@
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "/ecs/${env.ECS_TASK_DEFINITION}",
-                    "awslogs-region": "${env.AWS_DEFAULT_REGION}",
+                    "awslogs-group": "/ecs/${ECS_TASK_DEFINITION}",
+                    "awslogs-region": "${AWS_DEFAULT_REGION}",
                     "awslogs-stream-prefix": "ecs"
                 }
             },

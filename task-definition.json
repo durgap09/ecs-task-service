@@ -18,6 +18,7 @@
                 }
             ],
             "essential": true,
+            "valueCount": 1
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {

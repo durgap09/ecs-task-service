@@ -1,15 +1,13 @@
 {
-    "family": "html-td",
+    "family": "${ECS_TASK_DEFINITION}",
     "executionRoleArn": "arn:aws:iam::456325780689:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
     "cpu": "256",
     "memory": "512",
-    "requiresCompatibilities": [
-        "FARGATE"
-    ],
+    "requiresCompatibilities": ["FARGATE"],
     "containerDefinitions": [
         {
-            "name": "ecs-cl-1",
+            "name": "html-td",
             "image": "nginx:latest",
             "portMappings": [
                 {
@@ -18,19 +16,18 @@
                 }
             ],
             "essential": true,
-            "valueCount": 1,
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "/ecs/example-task",
-                    "awslogs-region": "us-west-2",
+                    "awslogs-group": "/ecs/${ECS_TASK_DEFINITION}",
+                    "awslogs-region": "${AWS_DEFAULT_REGION}",
                     "awslogs-stream-prefix": "ecs"
                 }
             },
             "command": [
                 "/bin/sh",
                 "-c",
-                "echo '<html><body><h1>Hello from my ECS task!</h1></body></html>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+                "echo '<html><body><h1>Hello, World!</h1></body></html>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
             ]
         }
     ]

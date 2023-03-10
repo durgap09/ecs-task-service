@@ -1,15 +1,16 @@
 {
-  "family": "${ECS_TASK_DEFINITION}",
-  "executionRoleArn": "arn:aws:iam::456325780689:role/ecsTaskExecutionRole",
+  "family": "my-task-definition",
+  "taskRoleArn": "arn:aws:iam::456325780689:role/my-task-role",
+  "executionRoleArn": "arn:aws:iam::456325780689:role/my-execution-role",
   "networkMode": "awsvpc",
-  "cpu": "256",
-  "memory": "512",
   "requiresCompatibilities": [
     "FARGATE"
   ],
+  "cpu": "256",
+  "memory": "512",
   "containerDefinitions": [
     {
-      "name": "${ECS_CLUSTER}",
+      "name": "ecs-cl-1",
       "image": "nginx:latest",
       "portMappings": [
         {
@@ -21,16 +22,17 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/${ECS_TASK_DEFINITION}",
-          "awslogs-region": "${AWS_DEFAULT_REGION}",
-          "awslogs-stream-prefix": "ecs"
+          "awslogs-group": "/ecs/my-task-definition",
+          "awslogs-region": "us-west-2",
+          "awslogs-stream-prefix": "ecs-cl-1"
         }
       },
       "command": [
-        "/bin/sh",
+        "sh",
         "-c",
-        "echo '<html><body><h1>Hello, World!</h1></body></html>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+        "echo '<html><body><h1>Hello, World!</h1></body></html>' > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'"
       ]
     }
   ]
 }
+

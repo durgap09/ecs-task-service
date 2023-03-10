@@ -1,26 +1,36 @@
 {
-  "family": "html-td",
-  "containerDefinitions": [
-    {
-      "name": "ecs-cl-1",
-      "image": "httpd:2.4",
-      "portMappings": [
+    "family": "html-td",
+    "executionRoleArn": "arn:aws:iam::456325780689:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "cpu": "256",
+    "memory": "512",
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "containerDefinitions": [
         {
-          "containerPort": 80,
-          "protocol": "tcp"
+            "name": "ecs-cl-1",
+            "image": "nginx:latest",
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/example-task",
+                    "awslogs-region": "us-west-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "command": [
+                "/bin/sh",
+                "-c",
+                "echo '<html><body><h1>Hello from my ECS task!</h1></body></html>' > /usr/share/nginx/html/index.html && exec nginx -g 'daemon off;'"
+            ]
         }
-      ],
-      "essential": true,
-      "memory": 128,
-      "cpu": 128,
-      "entryPoint": ["/bin/sh", "-c"],
-      "command": ["echo '<html><body><h1>Hello from my ECS task!</h1></body></html>' > /usr/local/apache2/htdocs/index.html && httpd-foreground"]
-    }
-  ],
-  "networkMode": "bridge",
-  "requiresCompatibilities": [
-    "EC2"
-  ],
-  "cpu": "256",
-  "memory": "512"
+    ]
 }

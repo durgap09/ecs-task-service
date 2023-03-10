@@ -7,7 +7,7 @@
     "requiresCompatibilities": ["FARGATE"],
     "containerDefinitions": [
         {
-            "name": "html-td",
+            "name": "${ECS_CLUSTER}",
             "image": "nginx:latest",
             "portMappings": [
                 {

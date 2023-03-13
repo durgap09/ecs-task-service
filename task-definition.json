@@ -1,7 +1,7 @@
 {
   "family": "my-task-definition",
-  "taskRoleArn": "arn:aws:iam::456325780689:role/my-task-role",
-  "executionRoleArn": "arn:aws:iam::456325780689:role/my-execution-role",
+  "taskRoleArn": "arn:aws:iam::0000000000000:role/my-task-role",
+  "executionRoleArn": "arn:aws:iam::00000000000000:role/my-execution-role",
   "networkMode": "awsvpc",
   "requiresCompatibilities": [
     "FARGATE"
